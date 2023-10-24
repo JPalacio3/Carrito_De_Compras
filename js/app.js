@@ -21,6 +21,12 @@ function cargarEventListners() {
           articulosCarrito = []; // Reseteamos el arreglo
           limpiarHtml(); // Limpiamos todo el contenido del carrito
      });
+
+     // Muestra los cursos quqe estén en el localstorage cuando el documento esté cargado
+     document.addEventListener('DOMContentLoaded',() => {
+          articulosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
+          carritoHTML();
+     })
 }
 
 // Funciones
@@ -110,7 +116,16 @@ function carritoHTML() {
           // Agrega el HTML del carrito en el carrito
           contenedorCarrito.appendChild(row);
      });
+
+     // AGREGAR EL CARRITO DE COMPRAS AL LOCALSTORAGE
+     sincronizarStorage();
 }
+
+// Función para sincronizar el carrito en el localstorage
+function sincronizarStorage() {
+     localStorage.setItem('carrito',JSON.stringify(articulosCarrito));
+}
+
 
 // Elimina los cursos del tbody para evitar que se dupliquen
 function limpiarHtml() {
